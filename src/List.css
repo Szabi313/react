@@ -1,0 +1,14 @@
+.list{
+    text-align: left;
+}
+
+.list li{
+    width: 25%;
+    position: relative;
+    margin: 0 0 0.5%;
+}
+
+.list li button{
+    position: absolute;
+    right: 0;
+}
