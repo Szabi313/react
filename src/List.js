@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './List.css';
 import ListItem from './ListItem';
+import Box from './Box';
 
 class List extends Component {
 
@@ -17,47 +18,67 @@ class List extends Component {
 
         this.list = [];
 
-        this.makeList();
+       // this.makeList();
 
         this.state = {
              //list: this.list,
+            listItems : [
+                {id:1, val: 65546, show: true},
+                {id:2, val:546554, show: true},
+                {id:3, val: 6548, show: true},
+                {id:4, val: 64564, show: true},
+                {id:5, val:846313, show: true}
+            ],
+            text: [
+                'vlamai',
+                'még vlamai'
+            ]
         };
 
+        this.text = [];
         //this.item = {};
+        this.makeList();
 
         this.makeList = this.makeList.bind(this);
         this.toggleClick = this.toggleClick.bind(this);
+        //this.onChange = this.onChange.bind(this);
+        this.makeText();
      }
 
      makeList(){
-         this.list = this.listItems.map((item, index) =>
-             <ListItem key={index} id={index} val={'item: ' + item.val} show={item.show} onClick={this.toggleClick}/>
+         this.list = this.state.listItems.map((item, index) =>
+             <ListItem key={index} id={index} val={'item: ' + item.val} show={this.state.listItems[index].show} onClick={this.toggleClick}/>
          )
          console.log(this.list);
      }
 
      toggleClick = (elem) => {
-        // console.log(elem.props.id);
 
-         //console.log(this.state.list[elem.props.id]);
-         this.listItems[elem.props.id].show = false;
+         /*this.state.listItems[elem.props.id].show = false;
          this.makeList();
-
-         //this.listItems[elem.props.id].show = false;
-         //var aListItem = <ListItem key={elem.props.id} id={elem.props.id} val={'item: ' + this.listItems[elem.props.id].val} show={this.listItems[elem.props.id].show} onClick={this.toggleClick}/>
 
          this.setState(() => ({
                  list: this.list
              })
-         );
+         );*/
 
-         /*this.state.list.forEach(function(item){
-             console.log(item);
-        });*/
+         /*const IListItems = this.state.listItems;
+         IListItems[elem.props.id].show = false;
+         this.setState(() => {listItems: IListItems});
+         this.makeList();*/
 
-        //this.state.list[3].props.show = false;
+         this.setState(function(prevState) {
+             const iListItems = prevState.listItems;
+             iListItems[elem.props.id].show = false;
+             this.makeList();
+             return{listItems: iListItems}
+         });
 
-     }
+         //return {show: false};
+
+
+
+      }
 
     addClick = () => {
         console.log("This: ", this);
@@ -82,14 +103,38 @@ class List extends Component {
          this.setState({list: this.list});
     }
 
+    onChange = (e) => {
+        //console.log('app change');
+
+        this.setState(
+            {text: e.target.value}
+        )
+    }
+
+    makeText = () => {
+        this.text = this.state.text.map(
+            (item, index) => <Box key={index} id={index} onChange={this.onChange} value={this.state.text}/>
+
+        )
+        console.log(this.text)
+    }
+
 
     render(){
         return (
-            <div>
+            <div className="hideableList">
                 <ul className="list">
                     {this./*state.*/list}
                 </ul>
                 <button>Show all</button>
+
+                <div>
+
+                    {this.text}
+
+                    <Box id={1} onChange={this.onChange} value={this.state.text}/>
+                    <Box id={2} onChange={this.onChange} value={this.state.text}/>
+                </div>
             </div>
         );
     }

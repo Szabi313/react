@@ -1,3 +1,7 @@
+.App{
+    text-align: left;
+}
+
 .list{
     text-align: left;
 }
@@ -11,4 +15,12 @@
 .list li button{
     position: absolute;
     right: 0;
+}
+
+.hideableList{
+    margin: 0 0 5%;
+}
+
+.boxClass{
+    margin: 0.5% 0.5% 0;
 }
